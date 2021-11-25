@@ -88,8 +88,8 @@ public class TicketingDS implements TicketingSystem {
 
 	public boolean same(Ticket t1,Ticket t2)
 	{
-		if (t1.tid == t2.tid&&t1.passenger == t2.passenger && t1.route == t2.route &&t1.departure == t2.departure&&t1.arrival == t2.arrival&&
-		t1.seat == t2.seat) return true;
+		if (t1.tid == t2.tid&&t1.passenger.equals(t2.passenger) && t1.route == t2.route &&t1.departure == t2.departure&&t1.arrival == t2.arrival&&
+		t1.coach==t2.coach&&t1.seat == t2.seat) return true;
 		return false;
 	}
 
@@ -144,6 +144,15 @@ public class TicketingDS implements TicketingSystem {
 		ticket.route = route_pos + 1;
 		ticket.coach = coach_pos + 1;
 		ticket.seat = seat_pos + 1;
+
+		// Ticket ticket_tmp = new Ticket();
+		// ticket_tmp.tid = ticket.tid;
+		// ticket_tmp.passenger = passenger;
+		// ticket_tmp.departure = departure;
+		// ticket_tmp.arrival = arrival;
+		// ticket_tmp.route = route_pos + 1;
+		// ticket_tmp.coach = coach_pos + 1;
+		// ticket_tmp.seat = seat_pos + 1;
 
 		sold.put(ticket.tid, ticket);
 		return ticket;
