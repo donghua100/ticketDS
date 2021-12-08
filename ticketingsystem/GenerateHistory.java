@@ -195,12 +195,6 @@ public class GenerateHistory {
 					  if(isSequential){
 						while (ThreadId.get() != barrier.value && exOthNotFin(threadnum, ThreadId.get()) == true) {}
 	                    SLOCK_TAKE();
-						if(exOthNotFin(threadnum, ThreadId.get()) == true){
-							barrier.value = rand.nextInt(threadnum);
-							while (fin[barrier.value] == true) {
-							  barrier.value = rand.nextInt(threadnum);
-							}
-						}
 					  }
 
 					  for(int j = 0; j < methodList.size(); j++){
@@ -222,18 +216,19 @@ public class GenerateHistory {
 						}
 					  }
 
-					  if(isSequential)
-						SLOCK_GIVE();
-					}
-					if (isSequential) {
-						fin[ThreadId.get()] = true;
+					  if (isSequential) {
+						if (k == testnum - 1)
+						  fin[ThreadId.get()] = true;
 						if (exOthNotFin(threadnum, ThreadId.get()) == true) {
 						  barrier.value = rand.nextInt(threadnum);
 						  while (fin[barrier.value] == true) {
-							  barrier.value = rand.nextInt(threadnum);
+							barrier.value = rand.nextInt(threadnum);
 						  }
 						}
+						SLOCK_GIVE();
+					  }
 					}
+
 				}
             });
 			threads[i].start();
